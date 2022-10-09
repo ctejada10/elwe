@@ -22,17 +22,10 @@ class Scrapper (object):
     with open (config_file_path, 'r') as config_file:
       config = json.load(config_file)
     
-    self.base_url        = config['base_url']
-    self.feed_url        = config['feed_url']
-    self.last_import     = config['last_import_title']
-    self.max_pages       = config['max_pages']
-    self.ignored_genres  = config['ignored_genres']
-    self.score_threshold = config['score_threshold']
-
     self.config = config
 
 
   def _update_config(self, config_file_path, new_config):
-    self.config = new_config
-    with open(config_file_path, 'w'):
-      json.dump(new_config)
+    print(new_config)
+    with open(config_file_path, 'w') as f:
+      json.dump(new_config, f, indent=2)

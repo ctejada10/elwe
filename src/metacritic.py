@@ -5,7 +5,8 @@ from entry import Entry
 
 class Metacritic (Scrapper):
   def __init__(self, config_path) -> None:
-    self._load_config(config_path)
+    self.config_path = config_path
+    self._load_config(self.config_path)
 
 
   def get_entries(self):
@@ -13,8 +14,8 @@ class Metacritic (Scrapper):
     last_import = True
     i           = 0
 
-    while(last_import and i <= self.max_pages):
-      url  = self.base_url + self.feed_url + str(i)
+    while(last_import and i <= self.config['max_pages']):
+      url  = self.config['base_url'] + self.config['feed_url'] + str(i)
       soup = self._get_contents(url)
 
       album_titles  = soup.find_all('a', class_='title')
@@ -29,7 +30,7 @@ class Metacritic (Scrapper):
         s = int(score.find('div', class_='metascore_w').get_text())
         g = self._get_genre(album)
 
-        if (t == self.last_import):
+        if (t == self.config['last_import_title']):
           last_import = False
           break
 
@@ -37,15 +38,16 @@ class Metacritic (Scrapper):
 
       i += 1
       
-    # if len(albums):
-      # self._update_config('last_import_title', albums[-1].album)
+    if len(albums):
+      self.config['last_import_title'] = albums[-1].album
+      self._update_config(self.config_path, self.config)
 
     return albums
 
 
   def _get_genre(self, album_tag):
     href       = album_tag.attrs['href']
-    url        = self.base_url + href
+    url        = self.config['base_url'] + href
     album_page = self._get_contents(url)
 
     genre = album_page.find('li', class_='product_genre').find('span', class_='data').get_text()
