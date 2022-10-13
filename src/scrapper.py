@@ -26,6 +26,5 @@ class Scrapper (object):
 
 
   def _update_config(self, config_file_path, new_config):
-    print(new_config)
     with open(config_file_path, 'w') as f:
       json.dump(new_config, f, indent=2)
