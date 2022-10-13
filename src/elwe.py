@@ -9,7 +9,13 @@ def main(config_path):
 
 
 def filter_releases(entries, config):
-  return [x for x in entries if x.genre not in config['ignored_genres'] and x.score >= config['score_threshold']]
+  filtered_entries = []
+  for entry in entries:
+    if entry.genre not in config['ignored_genres'] and entry.score >= config['score_threshold']:
+      filtered_entries.append(entry)
+  
+  return filtered_entries
+
 
 
 if __name__ == "__main__":
