@@ -1,9 +1,10 @@
 {
   "base_url": "https://www.metacritic.com/",
   "feed_url": "browse/albums/release-date/new-releases/date?page=",
-  "max_pages": 2, 
+  "max_pages": 3,
   "last_import_title": "",
-  "ignored_genres": ["Rap", "Hip Hop"],
+  "ignored_genres": [
+  ],
   "score_threshold": 80,
   "status": "Enabled"
 }
