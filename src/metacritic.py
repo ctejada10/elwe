@@ -30,6 +30,8 @@ class Metacritic (Scrapper):
         s = int(score.find('div', class_='metascore_w').get_text())
         g = self._get_genre(album)
 
+        print(t)
+
         if (t == self.config['last_import_title']):
           last_import = False
           break
@@ -39,7 +41,7 @@ class Metacritic (Scrapper):
       i += 1
       
     if len(albums):
-      self.config['last_import_title'] = albums[-1].album
+      self.config['last_import_title'] = albums[0].album
       self._update_config(self.config_path, self.config)
 
     return albums
@@ -52,3 +54,7 @@ class Metacritic (Scrapper):
 
     genre = album_page.find('li', class_='product_genre').find('span', class_='data').get_text()
     return genre
+
+if __name__ == '__main__':
+  m = Metacritic('../config/metacritic.json')
+  m.get_entries()
