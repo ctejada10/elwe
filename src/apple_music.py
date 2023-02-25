@@ -1,14 +1,15 @@
 import json
 from urllib.parse import quote_plus as encode
 import requests
+from os.path import join
 
 class AppleMusic():
-  def __init__(self, config_path="") -> None:
-    self._build_headers(config_path)
+  def __init__(self, config_folder_path) -> None:
+    self._build_headers(join(config_folder_path, 'apple_music.json'))
   
 
-  def _build_headers(self, auth_things):
-    with open('../config/apple_music.json', 'r') as f:
+  def _build_headers(self, config_path):
+    with open(config_path, 'r') as f:
       c = f.read()
       j = json.loads(c)
       self.headers = {
