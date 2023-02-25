@@ -2,7 +2,7 @@ from clize import run
 from tqdm import tqdm
 from metacritic import Metacritic
 from apple_music import AppleMusic
-import logging
+import logging, string
 
 def main(config_folder_path):
   m  = Metacritic(config_folder_path)
@@ -14,7 +14,7 @@ def main(config_folder_path):
   for release in (pbar:= tqdm(filtered_releases)):
     pbar.set_description(f'Adding {release.album} by {release.artist} to library.')
 
-    album_id = am.search_album(release.album, release.artist)
+    album_id = am.search_album(release.album.translate(str.maketrans('', '', string.punctuation)), release.artist.translate(str.maketrans('', '', string.punctuation)))
     if album_id is not None:
       am.add_album_to_library(album_id)
   
@@ -32,5 +32,5 @@ def filter_releases(entries, config):
 
 
 if __name__ == "__main__":
-  logging.basicConfig(level=logging.INFO)
+  logging.basicConfig(level=logging.WARN)
   run(main)
