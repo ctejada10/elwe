@@ -2,6 +2,7 @@ import json
 from urllib.parse import quote_plus as encode
 import requests
 from os.path import join
+import logging
 
 class AppleMusic():
   def __init__(self, config_folder_path) -> None:
@@ -22,6 +23,9 @@ class AppleMusic():
     url = 'https://api.music.apple.com/v1/catalog/us/search?types=albums&term='
     url = url + encode(artist + ' ' + album) 
     r = requests.get(url, headers=self.headers).json()['results']
+    if 'albums' not in r.keys():
+      logging.warn(f'Album "{album}" by {artist} was not found')
+      return None
     album_id = r['albums']['data'][0]['id']
     return album_id
 
