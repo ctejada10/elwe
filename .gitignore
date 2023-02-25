@@ -160,3 +160,4 @@ cython_debug/
 #.idea/
 
 config/metacritic.json
+config/apple_music.json

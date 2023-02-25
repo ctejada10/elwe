@@ -1,11 +1,12 @@
 from scrapper import Scrapper
 from datetime import datetime
 from entry import Entry
+from os.path import join
 
 
 class Metacritic (Scrapper):
-  def __init__(self, config_path) -> None:
-    self.config_path = config_path
+  def __init__(self, config_folder_path) -> None:
+    self.config_path = join(config_folder_path, 'metacritic.json')
     self._load_config(self.config_path)
 
 
