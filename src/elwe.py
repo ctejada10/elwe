@@ -32,5 +32,5 @@ def filter_releases(entries, config):
 
 
 if __name__ == "__main__":
-  logging.basicConfig(level=logging.INFO)
+  logging.basicConfig(level=logging.WARN)
   run(main)
