@@ -34,5 +34,9 @@ def filter_releases(entries, config):
 
 
 if __name__ == "__main__":
-  logging.basicConfig(filename='/var/log/elwe.log', level=logging.WARN)
+  logging.basicConfig(
+    filename='/var/log/elwe.log', 
+    format='%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S',
+    level=logging.WARN)
   run(main)
