@@ -39,7 +39,6 @@ class Metacritic (Scrapper):
           last_import = False
           break
 
-        # logging.info(f'Added {t} by {a} to the queue.')
         albums.append(Entry(a, t, s, g, d))
 
       i += 1
