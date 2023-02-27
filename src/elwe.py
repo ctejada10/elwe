@@ -12,7 +12,7 @@ def main(config_folder_path):
   unfiltered_releases = m.get_entries()
   filtered_releases   = filter_releases(unfiltered_releases, m.config)
 
-  for release in (pbar:= tqdm(filtered_releases)):
+  for release in filtered_releases:
     album_id = am.search_album(release.album.translate(str.maketrans('', '', string.punctuation)), 
                                release.artist.translate(str.maketrans('', '', string.punctuation)))
     if album_id is not None:
@@ -34,5 +34,5 @@ def filter_releases(entries, config):
 
 
 if __name__ == "__main__":
-  logging.basicConfig(level=logging.WARN)
+  logging.basicConfig(filename='/var/log/elwe.log', level=logging.WARN)
   run(main)
