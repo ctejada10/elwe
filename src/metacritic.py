@@ -16,7 +16,6 @@ class Metacritic (Scrapper):
     last_import = True
     i           = 0
 
-    print('Scrubbing Metacritic for new releases.')
     while(last_import and i <= self.config['max_pages']):
       url  = self.config['base_url'] + self.config['feed_url'] + str(i)
       soup = self._get_contents(url)

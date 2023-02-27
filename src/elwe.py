@@ -13,8 +13,6 @@ def main(config_folder_path):
   filtered_releases   = filter_releases(unfiltered_releases, m.config)
 
   for release in (pbar:= tqdm(filtered_releases)):
-    pbar.set_description(f'Adding {release.album} by {release.artist} to library.')
-
     album_id = am.search_album(release.album.translate(str.maketrans('', '', string.punctuation)), 
                                release.artist.translate(str.maketrans('', '', string.punctuation)))
     if album_id is not None:
