@@ -16,7 +16,6 @@ class Metacritic (Scrapper):
     last_import = True
     i           = 0
 
-    print('Scrubbing Metacritic for new releases.')
     while(last_import and i <= self.config['max_pages']):
       url  = self.config['base_url'] + self.config['feed_url'] + str(i)
       soup = self._get_contents(url)
@@ -40,7 +39,6 @@ class Metacritic (Scrapper):
           last_import = False
           break
 
-        # logging.info(f'Added {t} by {a} to the queue.')
         albums.append(Entry(a, t, s, g, d))
 
       i += 1
