@@ -21,12 +21,11 @@ def main(config_folder_path):
       am.add_album_to_library(album_id)
       number_of_albums += 1
   
-  status = ( f'Added {number_of_albums} albums to the library' 
-    if number_of_albums > 0 
-    else 'No new albums added')
-  r = requests.post(
-    'https://api.pushcut.io/HwnjkzpA86ntxL6NxPnS6/notifications/New%20albums%20added', 
-    json={'text': status})
+  if number_of_albums > 0:
+    status = f'Added {number_of_albums} albums to the library'
+    r = requests.post(
+      'https://api.pushcut.io/HwnjkzpA86ntxL6NxPnS6/notifications/New%20albums%20added', 
+      json={'text': status})
 
 
 def filter_releases(entries, config):
