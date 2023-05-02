@@ -48,19 +48,30 @@ class AppleMusic():
 
   def search_album(self, album, artist):
     url = 'https://api.music.apple.com/v1/catalog/us/search?types=albums&term='
-    url = url + encode(artist + ' ' + album) 
-    r = requests.get(url, headers=self.headers).json()['results']
-    if 'albums' not in r.keys():
-      logging.warn(f'Album "{album}" by {artist} was not found')
-      return None
-    album_id = r['albums']['data'][0]['id']
-    return album_id
+    url = url + encode(artist + ' ' + album)
+    try:
+      r = requests.get(url, headers=self.headers)
+      r.raise_for_status()
+      r = r.json()['results']
+      if 'albums' not in r.keys():
+        logging.warn(f'Album "{album}" by {artist} was not found')
+        return None
+      album_id = r['albums']['data'][0]['id']
+      return album_id
+    except requests.exceptions.HTTPError as e:
+      logging.error(e)
+      raise SystemExit(e)
 
 
   def add_album_to_library(self, album_id):
     url = 'https://api.music.apple.com/v1/me/library?ids[albums]='
     url = url + encode(album_id)
-    r = requests.post(url, headers=self.headers)
+    try:
+      r = requests.post(url, headers=self.headers)
+      r.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+      logging.error(e.strerror)
+      raise SystemExit(e)
   
 
   def load_library_data(self, path_to_applescript='get_library_info.scpt'):
