@@ -1,0 +1,3 @@
+[submodule "utils/generate_developer_token"]
+	path = utils/generate_developer_token
+	url = git@github.com:klaas/SwiftJWTSample.git
