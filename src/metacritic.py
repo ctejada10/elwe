@@ -12,7 +12,7 @@ class Metacritic (Scrapper):
 
 
   def get_entries(self):
-    albums      = list()
+    self.albums      = list()
     last_import = True
     i           = 0
 
@@ -39,15 +39,18 @@ class Metacritic (Scrapper):
           last_import = False
           break
 
-        albums.append(Entry(a, t, s, g, d))
+        self.albums.append(Entry(a, t, s, g, d))
 
       i += 1
       
-    if len(albums):
-      self.config['last_import_title'] = albums[0].album
+    return self.albums
+  
+  
+  def set_new_config_values(self):
+    if len(self.albums):
+      self.config['last_import_title'] = self.albums[0].album
       self._update_config(self.config_path, self.config)
 
-    return albums
 
 
   def _get_genre(self, album_tag):

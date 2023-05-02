@@ -27,6 +27,8 @@ def main(config_folder_path):
       'https://api.pushcut.io/HwnjkzpA86ntxL6NxPnS6/notifications/New%20albums%20added', 
       json={'text': status})
 
+  m.set_new_config_values() 
+
 
 def filter_releases(entries, config):
   filtered_entries = []
