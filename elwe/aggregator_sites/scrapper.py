@@ -2,7 +2,7 @@ from datetime import datetime
 import json
 import requests 
 from bs4 import BeautifulSoup
-from entry import Entry
+from .entry import Entry
 
 class Scrapper (object):
   def _get_contents(self, url):

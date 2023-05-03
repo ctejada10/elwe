@@ -1,4 +1,4 @@
-from utils import run_applescript
+# from utils import run_applescript
 import json
 from urllib.parse import quote_plus as encode
 import requests
@@ -9,6 +9,7 @@ from shutil import move
 import platform
 import pandas as pd
 from datetime import datetime, timedelta
+from elwe.utils.utils import Config
 
 class AppleMusic():
   def __init__(self, config_folder_path) -> None:

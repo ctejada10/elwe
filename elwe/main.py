@@ -1,13 +1,15 @@
 from clize import run
 from tqdm import tqdm
-from metacritic import Metacritic
-from apple_music import AppleMusic
+from aggregator_sites.metacritic import Metacritic
+from music_services.apple_music import AppleMusic
 import logging, string
 import requests
+from utils.utils import Config
 
 def main(config_folder_path):
   m  = Metacritic(config_folder_path)
   am = AppleMusic(config_folder_path)
+  c  = Config(config_folder_path)
 
   unfiltered_releases = m.get_entries()
   filtered_releases   = filter_releases(unfiltered_releases, m.config)

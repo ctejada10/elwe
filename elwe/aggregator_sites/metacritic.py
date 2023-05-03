@@ -1,6 +1,6 @@
-from scrapper import Scrapper
+from .scrapper import Scrapper
 from datetime import datetime
-from entry import Entry
+from .entry import Entry
 from os.path import join
 import logging
 
@@ -12,7 +12,7 @@ class Metacritic (Scrapper):
 
 
   def get_entries(self):
-    self.albums      = list()
+    self.albums = list()
     last_import = True
     i           = 0
 
