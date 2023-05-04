@@ -1,8 +1,8 @@
-from datetime import datetime
 import platform
+from datetime import datetime
 from shutil import move
-import pandas as pd
 
+import pandas as pd
 import requests
 from utils.apple_script_utils import run_applescript
 

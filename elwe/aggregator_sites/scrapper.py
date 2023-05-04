@@ -1,9 +1,11 @@
-from datetime import datetime
 import json
-import requests 
+from datetime import datetime
+
+import requests
 from bs4 import BeautifulSoup
 from entry import Entry
 from utils.config_utils import ConfigUtils
+
 
 class Scrapper (object):
 	def _get_contents(self, url):

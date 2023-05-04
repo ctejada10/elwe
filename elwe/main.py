@@ -1,10 +1,14 @@
-from clize import run
-from tqdm import tqdm
-from aggregator_sites.metacritic import Metacritic
-from music_services.apple_music import AppleMusic
-import logging, string
+import logging
+import string
+
 import requests
+from aggregator_sites.metacritic import Metacritic
+from clize import run
+from music_services.apple_music import AppleMusic
+from tqdm import tqdm
+
 from utils.utils import Config
+
 
 def main(config_folder_path):
 	m  = Metacritic(config_folder_path)

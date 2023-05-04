@@ -1,8 +1,9 @@
-from scrapper import Scrapper
-from datetime import datetime
-from entry import Entry
-from os.path import join
 import logging
+from datetime import datetime
+from os.path import join
+
+from entry import Entry
+from scrapper import Scrapper
 
 
 class Metacritic (Scrapper):

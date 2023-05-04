@@ -1,8 +1,10 @@
-from urllib.parse import quote_plus as encode
-import requests
-from os.path import join
 import logging
+from os.path import join
+from urllib.parse import quote_plus as encode
+
+import requests
 from utils.config_utils import ConfigUtils
+
 
 class AppleMusic():
 	def __init__(self, config_file_path) -> None:
