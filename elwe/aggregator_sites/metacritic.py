@@ -1,13 +1,13 @@
-from .scrapper import Scrapper
+from scrapper import Scrapper
 from datetime import datetime
-from .entry import Entry
+from entry import Entry
 from os.path import join
 import logging
 
 
 class Metacritic (Scrapper):
 	def __init__(self, config_folder_path) -> None:
-		self.config_path = join(config_folder_path, 'metacritic.json')
+		self.config_path = join(config_folder_path)
 		self._load_config(self.config_path)
 
 
@@ -16,8 +16,8 @@ class Metacritic (Scrapper):
 		last_import = True
 		i           = 0
 
-		while(last_import and i <= self.config['max_pages']):
-			url  = self.config['base_url'] + self.config['feed_url'] + str(i)
+		while(last_import and i <= self.config.max_pages):
+			url  = self.config.base_url + self.config.feed_url + str(i)
 			soup = self._get_contents(url)
 
 			album_titles  = soup.find_all('a', class_='title')
@@ -35,7 +35,7 @@ class Metacritic (Scrapper):
 				except:
 					continue
 
-				if (t == self.config['last_import_title']):
+				if (t == self.config.last_import_title):
 					last_import = False
 					break
 
@@ -48,14 +48,13 @@ class Metacritic (Scrapper):
 	
 	def set_new_config_values(self):
 		if len(self.albums):
-			self.config['last_import_title'] = self.albums[0].album
-			self._update_config(self.config_path, self.config)
+			self.config.update_config_value('last_import_title', self.albums[0].album)
 
 
 
 	def _get_genre(self, album_tag):
 		href       = album_tag.attrs['href'][1:]
-		url        = self.config['base_url'] + href
+		url        = self.config.base_url + href
 		album_page = self._get_contents(url)
 
 		if len(album_page):
@@ -63,5 +62,5 @@ class Metacritic (Scrapper):
 			return genre
 
 if __name__ == '__main__':
-	m = Metacritic('../config/metacritic.json')
-	m.get_entries()
+	m = Metacritic('config/metacritic.json')
+	print(m.get_entries())

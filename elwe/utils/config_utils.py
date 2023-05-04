@@ -7,15 +7,20 @@ class ConfigUtils(object):
 
 
 	def _load_configs(self):
-		# I am thinking on dynamically adding each of the fields in the JSON as a
-		# property for each object.
 		with open(self.config_file_path, 'r') as f:
 			self.json_dict = json.load(f)
-		pass
+		
+		for k, v in self.json_dict.items():
+			setattr(self, k, v)
 
 
 	def update_config_value(self, property, value):
-		# Statement here for editing dynamic properties
 		self.json_dict[property] = value
+		setattr(self, property, value)
+
 		with open(self.config_file_path, 'w') as f:
 			json.dump(self.json_dict, f, indent=2)
+
+if __name__ == '__main__':
+	cu = ConfigUtils('config/metacritic.json')
+	print(cu.last_import_title)

@@ -2,7 +2,8 @@ from datetime import datetime
 import json
 import requests 
 from bs4 import BeautifulSoup
-from .entry import Entry
+from entry import Entry
+from utils.config_utils import ConfigUtils
 
 class Scrapper (object):
 	def _get_contents(self, url):
@@ -19,10 +20,7 @@ class Scrapper (object):
 	
 
 	def _load_config(self, config_file_path):
-		with open (config_file_path, 'r') as config_file:
-			config = json.load(config_file)
-		
-		self.config = config
+		self.config = ConfigUtils(config_file_path)
 
 
 	def _update_config(self, config_file_path, new_config):
