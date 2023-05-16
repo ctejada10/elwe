@@ -8,7 +8,7 @@ from utils.config_utils import ConfigUtils
 
 class AppleMusic():
 	def __init__(self, config_file_path) -> None:
-		self.config_file_path = join(config_file_path)
+		self.config_file_path = join(config_file_path, 'apple_music.json')
 		self._load_config()
 
 
