@@ -15,8 +15,10 @@ def send_new_album_notification(config_file_path, new_albums):
 	text = text.rstrip()
 	_send_notification(config_file_path, 'new_album', title, text)
 
-def send_error_notification(error):
-	pass
+def send_error_notification(config_file_path, location):
+	title = f'Error while running Elwë in {location}.'
+	text  = ''
+	_send_notification(config_file_path, 'error', title, text)
 
 
 if __name__ == '__main__':
