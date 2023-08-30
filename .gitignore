@@ -161,3 +161,6 @@ cython_debug/
 
 config/metacritic.json
 config/apple_music.json
+*.csv
+*.p8
+config/pushcut.json
