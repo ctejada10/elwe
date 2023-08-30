@@ -25,7 +25,7 @@ def main(config_folder_path):
 			release.album.translate(str.maketrans('', '', string.punctuation)), 
 			release.artist.translate(str.maketrans('', '', string.punctuation)))
 		if album_id is not None:
-			logging.info(f'Adding album {release.album} by {release.artist}.')
+			logging.info(f'Adding album {release.album} by {release.artist} to library.')
 			am.add_album_to_library(album_id)
 			added_albums.append({'artist': release.artist, 'album': release.album})
 	
@@ -44,13 +44,14 @@ def filter_releases(entries, c):
 		else:
 			logging.info(f'Album {entry.album} by {entry.artist} was skipped. (Score: {entry.score}; Genre: {entry.genre})')
 	
+	logging.info(f'Filtered away {len(entries) - len(filtered_entries)} albums.')
 	return filtered_entries
 
 
 
 if __name__ == "__main__":
 	logging.basicConfig(
-		# filename='/var/log/elwe.log', 
+		filename='/var/log/elwe.log', 
 		format='%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s',
 		datefmt='%Y-%m-%d %H:%M:%S',
 		level=logging.WARN)
