@@ -19,18 +19,12 @@ def main(config_folder_path):
 	unfiltered_releases = m.get_entries()
 	filtered_releases   = filter_releases(unfiltered_releases, m.config)
 
-	added_albums = []
+	result = '"'
 	for release in filtered_releases:
-		album_id = am.search_album(
-			release.album.translate(str.maketrans('', '', string.punctuation)), 
-			release.artist.translate(str.maketrans('', '', string.punctuation)))
-		if album_id is not None:
-			logging.info(f'Adding album {release.album} by {release.artist} to library.')
-			am.add_album_to_library(album_id)
-			added_albums.append({'artist': release.artist, 'album': release.album})
+		result += release.to_json() + "\n"
 	
-	if added_albums:
-		send_new_album_notification(join(config_folder_path, 'pushcut.json'), added_albums)
+	result += '"'
+	print(result)
 
 	m.set_new_config_values() 
 
