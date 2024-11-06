@@ -19,12 +19,18 @@ def main(config_folder_path):
 	unfiltered_releases = m.get_entries()
 	filtered_releases   = filter_releases(unfiltered_releases, m.config)
 
-	result = '"'
+	added_albums = []
 	for release in filtered_releases:
-		result += release.to_json() + "\n"
+		album_id = am.search_album(
+			release.album.translate(str.maketrans('', '', string.punctuation)), 
+			release.artist.translate(str.maketrans('', '', string.punctuation)))
+		if album_id is not None:
+			logging.info(f'Adding album {release.album} by {release.artist}.')
+			am.add_album_to_library(album_id)
+			added_albums.append({'artist': release.artist, 'album': release.album})
 	
-	result += '"'
-	print(result)
+	if added_albums:
+		send_new_album_notification(join(config_folder_path, 'pushcut.json'), added_albums)
 
 	m.set_new_config_values() 
 
@@ -38,14 +44,13 @@ def filter_releases(entries, c):
 		else:
 			logging.info(f'Album {entry.album} by {entry.artist} was skipped. (Score: {entry.score}; Genre: {entry.genre})')
 	
-	logging.info(f'Filtered away {len(entries) - len(filtered_entries)} albums.')
 	return filtered_entries
 
 
 
 if __name__ == "__main__":
 	logging.basicConfig(
-		filename='/var/log/elwe.log', 
+		# filename='/var/log/elwe.log', 
 		format='%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s',
 		datefmt='%Y-%m-%d %H:%M:%S',
 		level=logging.WARN)
