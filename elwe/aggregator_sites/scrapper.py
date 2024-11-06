@@ -11,7 +11,7 @@ class Scrapper (object):
 		headers = {"User-Agent":
 				"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:105.0) \
 					Gecko/20100101 Firefox/105.0"}
-		contents = requests.get(url, headers=headers, allow_redirects=False)
+		contents = requests.get(url, headers=headers, allow_redirects=0)
 
 		if contents.status_code != 200:
 			# Log here
